@@ -1,0 +1,318 @@
+/* Reset y estilos base modernos */
+:root {
+  color-scheme: light dark;
+  /* Paleta de colores ROBUX - Limpia y moderna */
+  --primary-blue: #3b82f6;
+  --light-blue: #60a5fa;
+  --cyan: #06b6d4;
+  --pink: #ec4899;
+  --yellow: #fbbf24;
+  --green: #10b981;
+  --orange: #f97316;
+  
+  /* Grises modernos */
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  
+  /* Tipografía moderna */
+  --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* Espaciado */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  
+  /* Bordes suaves */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-2xl: 2.5rem;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  color: var(--gray-800);
+  font-size: 1rem;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Botones modernos estilo Dr. Friend */
+.btn-primary {
+  background: var(--primary-blue);
+  color: white;
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: var(--light-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+}
+
+.btn-secondary {
+  background: white;
+  color: var(--primary-blue);
+  border: 2px solid var(--primary-blue);
+  border-radius: var(--radius-lg);
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: var(--primary-blue);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+}
+
+/* Tarjetas modernas */
+.card {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Card de colores Dr. Friend */
+.card-blue {
+  background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+  color: white;
+}
+
+.card-pink {
+  background: linear-gradient(135deg, var(--pink), #f472b6);
+  color: white;
+}
+
+.card-yellow {
+  background: linear-gradient(135deg, var(--yellow), #fcd34d);
+  color: var(--gray-800);
+}
+
+.card-green {
+  background: linear-gradient(135deg, var(--green), #34d399);
+  color: white;
+}
+
+.card-orange {
+  background: linear-gradient(135deg, var(--orange), #fb923c);
+  color: white;
+}
+
+/* Badges modernos */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.badge-blue {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--primary-blue);
+}
+
+.badge-pink {
+  background: rgba(236, 72, 153, 0.1);
+  color: var(--pink);
+}
+
+.badge-yellow {
+  background: rgba(251, 191, 36, 0.1);
+  color: #d97706;
+}
+
+.badge-green {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--green);
+}
+
+/* Animaciones suaves */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes bounce-subtle {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -5px, 0);
+  }
+  70% {
+    transform: translate3d(0, -3px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s infinite;
+}
+
+/* Containers */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+/* Títulos */
+.title-xl {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--gray-900);
+}
+
+.title-lg {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--gray-900);
+}
+
+.title-md {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--gray-900);
+}
+
+/* Texto */
+.text-lg {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: var(--gray-600);
+}
+
+/* Grid responsivo */
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* Utilidades de color de fondo */
+.bg-blue-100 {
+  background-color: #dbeafe;
+}
+
+.bg-pink-100 {
+  background-color: #fce7f3;
+}
+
+.bg-yellow-100 {
+  background-color: #fef3c7;
+}
+
+.bg-green-100 {
+  background-color: #d1fae5;
+}
+
+.bg-orange-100 {
+  background-color: #fed7aa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .grid-cols-2,
+  .grid-cols-3 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  
+  .title-xl {
+    font-size: 2.5rem;
+  }
+  
+  .title-lg {
+    font-size: 2rem;
+  }
+  
+  .section {
+    padding: 3rem 0;
+  }
+}
