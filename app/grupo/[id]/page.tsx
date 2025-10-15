@@ -36,9 +36,7 @@ export default function GrupoPage({ params }: Params) {
           <h1 className="text-2xl sm:text-3xl font-bold text-token mb-2">
             Grupo {id}
           </h1>
-          <p className="muted-token text-base sm:text-lg">
-            {groupTopic}
-          </p>
+          {/* Eliminado topic debajo del nombre */}
         </div>
         {/* Contenido del grupo */}
         <div className="transition-all duration-300 w-full">

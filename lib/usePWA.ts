@@ -136,7 +136,7 @@ export function usePWA() {
   const showUpdateNotification = () => {
     if ('Notification' in window && Notification.permission === 'granted') {
       new Notification('Nueva versión disponible', {
-        body: 'Hay una nueva versión de la Plataforma Académica disponible. Recarga la página para actualizarla.',
+  body: 'Hay una nueva versión de Robux disponible. Recarga la página para actualizarla.',
         icon: '/icons/icon-192x192.png',
         tag: 'app-update'
       });

@@ -18,19 +18,19 @@ export default function LoginPage() {
       setError(null);
       const { error } = await getSupabase().auth.signInWithPassword({ email, password });
       if (error) throw error;
-
+      
       // Mostrar mensaje de éxito
       const message = document.createElement('div');
       message.className = 'fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg z-50';
       message.textContent = 'Sesión iniciada correctamente';
       document.body.appendChild(message);
-
+      
       setTimeout(() => {
         if (document.body.contains(message)) {
           document.body.removeChild(message);
         }
       }, 2000);
-
+      
       router.push('/');
     } catch (err: any) {
       setError(err.message ?? 'Error de inicio de sesión');
@@ -51,7 +51,7 @@ export default function LoginPage() {
           <div className="text-center mb-8">
             <div className="text-4xl mb-4">🎓</div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
-              Plataforma Académica
+              Robux
             </h1>
             <p className="text-gray-400 mt-2">Inicia sesión para acceder como admin o delegado</p>
           </div>

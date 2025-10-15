@@ -22,7 +22,7 @@ export default function PWABanner() {
             <div className="flex-1">
               <h4 className="font-semibold text-sm">Instalar App</h4>
               <p className="text-xs opacity-90">
-                Instala la Plataforma Académica para un acceso más rápido y funcionalidad offline
+                Instala Robux para un acceso más rápido y funcionalidad offline
               </p>
             </div>
             <div className="flex space-x-2">

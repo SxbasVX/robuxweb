@@ -6,13 +6,13 @@ import Providers from '../components/Providers';
 import PWABanner from '../components/PWABanner';
 
 export const metadata = {
-  title: 'Plataforma Académica',
-  description: 'Plataforma colaborativa para grupos de investigación académica',
+  title: 'Robux: Red de Orientación en Bienestar y Unidades de Experiencia',
+  description: 'Robux: Red de Orientación en Bienestar y Unidades de Experiencia. Colaboración, proyectos y bienestar en una sola plataforma.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Plataforma Académica'
+  title: 'Robux: Red de Orientación en Bienestar y Unidades de Experiencia'
   },
   icons: {
     icon: [

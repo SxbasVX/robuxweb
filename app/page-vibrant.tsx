@@ -172,7 +172,7 @@ const HomePage = memo(function HomePage() {
   const { user } = useAuth();
   const [showTutorial, setShowTutorial] = useState(false);
   const [homeContent, setHomeContent] = useState({
-    title: 'Plataforma Académica Colaborativa',
+  title: 'Robux',
     subtitle: 'Conectando mentes brillantes para transformar el conocimiento en impacto real ✨',
     welcomeMessage: 'Únete a grupos de investigación especializados y colabora en proyectos que marcan la diferencia en el mundo 🌍'
   });
@@ -210,11 +210,7 @@ const HomePage = memo(function HomePage() {
           <div className="glass-vibrant max-w-4xl mx-auto p-12 space-y-10 animate-slide-in-bounce">
             <div className="space-y-8">
               <h1 className="text-6xl lg:text-8xl font-black text-white leading-tight">
-                <span className="block animate-shimmer-rainbow">Plataforma</span>
-                <span className="block text-transparent bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 bg-clip-text animate-pulse-glow">
-                  Académica
-                </span>
-                <span className="block animate-shimmer-rainbow">Colaborativa</span>
+                <span className="block animate-shimmer-rainbow">Robux</span>
               </h1>
               
               <div className="flex justify-center space-x-4 mb-8">
@@ -317,7 +313,7 @@ const HomePage = memo(function HomePage() {
           <div className="text-center space-y-8 mb-20">
             <div className="glass-vibrant max-w-3xl mx-auto p-10 animate-slide-in-bounce">
               <h2 className="text-5xl lg:text-6xl font-black text-white mb-6 animate-shimmer-rainbow">
-                ¿Por qué elegir nuestra plataforma?
+                ¿Por qué elegir Robux?
               </h2>
               <p className="text-2xl text-white/90 leading-relaxed font-bold">
                 Herramientas diseñadas para potenciar la 
@@ -359,7 +355,7 @@ const HomePage = memo(function HomePage() {
               {
                 icon: '🌐',
                 title: 'Acceso Universal',
-                description: 'Disponible en todos tus dispositivos con experiencia optimizada para cada plataforma',
+                description: 'Disponible en todos tus dispositivos con experiencia optimizada para Robux',
                 color: 'from-indigo-500 to-purple-500',
                 badge: 'MULTI-DEVICE'
               },

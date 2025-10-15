@@ -53,8 +53,8 @@ const academicGroups = [
   { 
     id: 5, 
     name: 'Grupo 5', 
-    topic: 'Tecnología ROBUX',
-    description: '⚡ Desarrollo de plataformas tecnológicas avanzadas',
+  topic: 'Robux',
+  description: '⚡ Robux: desarrollo de tecnología avanzada',
     members: ['Valentina Cruz', 'Sebastián Vargas', 'Camila Delgado', 'Nicolás Pérez'],
     color: 'from-indigo-600 via-blue-600 to-cyan-500',
     bgColor: 'bg-gradient-to-br from-indigo-100 to-blue-100',
@@ -218,7 +218,7 @@ const HomePage = memo(function HomePage() {
               </h1>
               
               <div className="flex justify-center space-x-4 mb-8">
-                <div className="badge-vibrant animate-bounce-vibrant">¡PLATAFORMA ROBUX! 🏥</div>
+                <div className="badge-vibrant animate-bounce-vibrant">ROBUX 🏥</div>
                 <div className="badge-vibrant animate-wiggle" style={{animationDelay: '0.5s'}}>BIENESTAR INTEGRAL 💙</div>
               </div>
               

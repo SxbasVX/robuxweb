@@ -1,5 +1,5 @@
 // Service Worker para PWA con funcionalidad offline
-const CACHE_NAME = 'academia-platform-v1.0.0';
+const CACHE_NAME = 'robux-v1.0.0';
 const API_CACHE = 'academia-api-v1.0.0';
 
 // Archivos críticos que siempre se cachean
@@ -206,7 +206,7 @@ self.addEventListener('push', (event) => {
   };
 
   event.waitUntil(
-    self.registration.showNotification(data.title || 'Plataforma Académica', options)
+  self.registration.showNotification(data.title || 'Robux', options)
   );
 });
 

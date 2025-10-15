@@ -82,7 +82,7 @@ const academicGroups = [
     id: 4, 
     name: 'Grupo 4', 
     description: 'Educación Digital y Nuevas Metodologías',
-    topic: 'Plataformas de Aprendizaje Interactivo',
+  topic: 'Robux',
     members: [
       'Martinez Lugue Claudia Alexandra',
       'Morales Damian Andrea Katherine',

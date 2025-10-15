@@ -12,7 +12,7 @@ export default function HomePageEditor({ isEditMode, onToggleEdit }: HomePageEdi
   const { user, role } = useAuth();
   const [homeContent, setHomeContent] = useState({
     title: 'Foro Académico',
-    subtitle: 'Plataforma colaborativa para grupos de investigación',
+  subtitle: 'Robux: plataforma colaborativa para grupos y proyectos',
     welcomeMessage: 'Explora los diferentes grupos académicos y participa en las discusiones'
   });
   const [loading, setLoading] = useState(false);

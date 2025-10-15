@@ -34,6 +34,14 @@ const HomePage = memo(function HomePage() {
 
   // Tutorial: abrir solo cuando el usuario presiona el botón (sin auto-open)
 
+  // Smooth scroll to grupos section
+  const handleScrollToGrupos = () => {
+    const gruposSection = document.getElementById('grupos');
+    if (gruposSection) {
+      gruposSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen">
       {/* Tutorial Overlay */}
@@ -74,9 +82,13 @@ const HomePage = memo(function HomePage() {
                   >
                     💎 Tutorial
                   </button>
-                  <Link href="/login" className="btn-primary w-full sm:w-auto text-center">
-                    Iniciar sesión
-                  </Link>
+                  <button
+                    className="btn-primary w-full sm:w-auto text-center"
+                    onClick={handleScrollToGrupos}
+                    aria-label="Ver grupos"
+                  >
+                    Ver grupos
+                  </button>
                 </div>
                 {mounted && (
                   <button

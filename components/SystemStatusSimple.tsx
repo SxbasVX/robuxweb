@@ -209,7 +209,7 @@ const SystemStatusSimple: React.FC = () => {
         <div className="text-center bg-gradient-to-r from-green-600/20 to-emerald-600/20 rounded-xl p-8 border border-green-500/30">
           <h2 className="text-3xl font-bold text-white mb-4">🎉 ¡Sistema Listo!</h2>
           <p className="text-xl text-gray-300 mb-4">
-            Tu plataforma está completamente configurada y lista para usar
+            Robux está completamente configurado y listo para usar
           </p>
           <div className="flex justify-center space-x-6 text-lg">
             <span className="text-green-400">✅ Frontend</span>

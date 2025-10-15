@@ -24,40 +24,41 @@ export function useBackupSystem() {
       const timestamp = new Date().toISOString();
       const backupId = crypto.randomUUID();
       
-      const [posts, comments, students, users] = await Promise.all([
+      const [posts, comments, estudiantes, users] = await Promise.all([
         supabase.from('posts').select('*').then(r => r.data || []),
         supabase.from('comentarios').select('*').then(r => r.data || []),
-        supabase.from('students').select('*').then(r => r.data || []),
+        supabase.from('estudiantes').select('*').then(r => r.data || []),
         supabase.from('users').select('*').then(r => r.data || [])
       ]);
 
-      const totalRecords = posts.length + comments.length + students.length + users.length;
+      const totalRecords = posts.length + comments.length + estudiantes.length + users.length;
       
       const backupData = {
         metadata: { id: backupId, created_at: timestamp, version: '1.0' },
-        data: { posts, comentarios: comments, students, users },
+        data: { posts, comentarios: comments, estudiantes, users },
         statistics: { total_records: totalRecords }
       };
 
       const fileName = `backup_${timestamp.split('T')[0]}_${Date.now()}.json`;
       const backupJson = JSON.stringify(backupData, null, 2);
 
-      const backup: BackupRecord = {
+      // Guardar el backup en la tabla 'backups' de Supabase
+      const { error: insertError } = await supabase.from('backups').insert({
         id: backupId,
         created_at: timestamp,
         type: 'manual',
         records_count: totalRecords,
         status: 'completed',
-        file_name: fileName
-      };
+        file_name: fileName,
+        data: backupData
+      });
+      if (insertError) {
+        return { success: false, error: 'Error al guardar backup en la base de datos' };
+      }
 
-      const history = JSON.parse(localStorage.getItem('backupHistory') || '[]');
-      const newHistory = [backup, ...history.slice(0, 9)];
-      localStorage.setItem('backupHistory', JSON.stringify(newHistory));
-      
-      setBackupList(newHistory);
       setLastBackup(timestamp);
 
+      // Descargar el backup como archivo JSON
       const blob = new Blob([backupJson], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');

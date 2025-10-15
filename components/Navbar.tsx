@@ -11,7 +11,7 @@ const academicGroups = [
   { id: 1, name: 'Grupo 1', topic: 'Inteligencia Artificial y Machine Learning' },
   { id: 2, name: 'Grupo 2', topic: 'Energías Renovables y Conservación' },
   { id: 3, name: 'Grupo 3', topic: 'Telemedicina y Aplicaciones Médicas' },
-  { id: 4, name: 'Grupo 4', topic: 'Plataformas de Aprendizaje Interactivo' },
+  { id: 4, name: 'Grupo 4', topic: 'Robux' },
   { id: 5, name: 'Grupo 5', topic: 'Aplicaciones Descentralizadas y DeFi' },
 ];
 

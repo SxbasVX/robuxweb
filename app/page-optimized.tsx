@@ -36,7 +36,7 @@ const academicGroups = [
     id: 4, 
     name: 'Grupo 4', 
     description: 'Educación Digital y Nuevas Metodologías',
-    topic: 'Plataformas de Aprendizaje Interactivo',
+  topic: 'Robux',
     members: ['Patricia Mendoza', 'Javier Santos', 'Isabella Ramos', 'Miguel Ortega'],
     color: 'from-pink-500 to-rose-600',
     icon: '📚'
@@ -201,7 +201,7 @@ const HomePage = memo(function HomePage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed animate-slide-up-delay">
-            Plataforma académica donde cada grupo presenta sus investigaciones, ensayos individuales, videos explicativos y proyectos de intervención grupal.
+            Robux: plataforma donde cada grupo presenta sus investigaciones, ensayos individuales, videos explicativos y proyectos de intervención grupal.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up-delay">
@@ -268,11 +268,11 @@ const HomePage = memo(function HomePage() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="mb-6">
             <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent mb-2">
-              Plataforma Académica
+              Robux
             </h3>
           </div>
           <p className="text-gray-300 mb-4">Compartiendo conocimiento e investigación académica</p>
-          <p className="text-sm">&copy; 2024 Plataforma Académica. Desarrollado para la presentación de proyectos de investigación.</p>
+          <p className="text-sm">&copy; 2024 Robux. Desarrollado para la presentación de proyectos de investigación.</p>
         </div>
       </footer>
     </div>
