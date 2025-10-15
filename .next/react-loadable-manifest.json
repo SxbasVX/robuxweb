@@ -1,43 +1,47 @@
 {
   "app\\grupo\\[id]\\page.tsx -> ../../../components/GroupBoard": {
-    "id": "app\\grupo\\[id]\\page.tsx -> ../../../components/GroupBoard",
+    "id": 5852,
     "files": [
-      "static/css/_app-pages-browser_components_GroupBoard_tsx.css",
-      "static/chunks/_app-pages-browser_components_GroupBoard_tsx.js"
+      "static/css/8b54669db085020c.css",
+      "static/chunks/835-848cf982f42a1d03.js",
+      "static/chunks/629.ca8309493505aaf9.js",
+      "static/chunks/320-fec2251845a9d991.js",
+      "static/chunks/852.eb973d02d8b2adc5.js"
     ]
   },
   "components\\GroupBoard.tsx -> ./GroupHomeEditor": {
-    "id": "components\\GroupBoard.tsx -> ./GroupHomeEditor",
+    "id": 8269,
     "files": [
-      "static/chunks/_app-pages-browser_components_GroupHomeEditor_tsx.js"
+      "static/chunks/269.e79d8bdeb6a69212.js"
     ]
   },
   "components\\GroupBoard.tsx -> ./GroupHomePage": {
-    "id": "components\\GroupBoard.tsx -> ./GroupHomePage",
+    "id": 9587,
     "files": [
-      "static/chunks/_app-pages-browser_components_GroupHomePage_tsx.js"
+      "static/chunks/587.b86c2e69f9013920.js"
     ]
   },
   "components\\RichTextEditor.tsx -> react-quill": {
-    "id": "components\\RichTextEditor.tsx -> react-quill",
+    "id": 8436,
     "files": [
-      "static/chunks/_app-pages-browser_node_modules_react-quill_lib_index_js.js"
+      "static/chunks/8012d7e2.62ce2848a4f14afa.js",
+      "static/chunks/436.e36802658712c509.js"
     ]
   },
   "node_modules\\@supabase\\auth-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch": {
-    "id": "node_modules\\@supabase\\auth-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch",
+    "id": 4307,
     "files": []
   },
   "node_modules\\@supabase\\functions-js\\dist\\module\\helper.js -> @supabase/node-fetch": {
-    "id": "node_modules\\@supabase\\functions-js\\dist\\module\\helper.js -> @supabase/node-fetch",
+    "id": 4307,
     "files": []
   },
   "node_modules\\@supabase\\realtime-js\\dist\\module\\RealtimeClient.js -> @supabase/node-fetch": {
-    "id": "node_modules\\@supabase\\realtime-js\\dist\\module\\RealtimeClient.js -> @supabase/node-fetch",
+    "id": 4307,
     "files": []
   },
   "node_modules\\@supabase\\storage-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch": {
-    "id": "node_modules\\@supabase\\storage-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch",
+    "id": 4307,
     "files": []
   }
 }

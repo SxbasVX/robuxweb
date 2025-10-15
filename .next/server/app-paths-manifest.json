@@ -1,6 +1,12 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/comments/route": "app/api/comments/route.js",
   "/admin/page": "app/admin/page.js",
+  "/grupo/[id]/page": "app/grupo/[id]/page.js",
+  "/ayuda/page": "app/ayuda/page.js",
+  "/login/page": "app/login/page.js",
   "/page": "app/page.js",
   "/perfil/page": "app/perfil/page.js",
-  "/grupo/[id]/page": "app/grupo/[id]/page.js"
+  "/status/page": "app/status/page.js",
+  "/api/update-post-files/route": "app/api/update-post-files/route.js"
 }
