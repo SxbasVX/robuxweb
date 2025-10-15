@@ -18,19 +18,19 @@ export default function LoginPage() {
       setError(null);
       const { error } = await getSupabase().auth.signInWithPassword({ email, password });
       if (error) throw error;
-      
+
       // Mostrar mensaje de éxito
       const message = document.createElement('div');
       message.className = 'fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg z-50';
       message.textContent = 'Sesión iniciada correctamente';
       document.body.appendChild(message);
-      
+
       setTimeout(() => {
         if (document.body.contains(message)) {
           document.body.removeChild(message);
         }
       }, 2000);
-      
+
       router.push('/');
     } catch (err: any) {
       setError(err.message ?? 'Error de inicio de sesión');

@@ -1,10 +1,7 @@
 {
-  "name": "Plataforma Académica",
-  "short_name": "AcademiaPlatform",
-  "description": "Plataforma colaborativa para grupos de investigación académica",
-    "name": "Robux",
-    "short_name": "Robux",
-    "description": "Red de Orientación en Bienestar y Unidades de Experiencia",
+  "name": "Robux",
+  "short_name": "Robux",
+  "description": "Red de Orientación en Bienestar y Unidades de Experiencia",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",

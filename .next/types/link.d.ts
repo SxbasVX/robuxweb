@@ -35,8 +35,8 @@ declare namespace __next_route_internal_types__ {
     | `/api/update-post-files`
     | `/ayuda`
     | `/login`
-    | `/status`
     | `/perfil`
+    | `/status`
   type DynamicRoutes<T extends string = string> = 
     | `/grupo/${SafeSlug<T>}`
 
