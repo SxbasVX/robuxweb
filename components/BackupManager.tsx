@@ -49,6 +49,15 @@ export default function BackupManager() {
     );
   }
 
+  // ✅ Handlers que devuelven void (no Promise) — compatibles con onClick
+  const handleCreateBackupClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+    void createBackup('manual'); // o 'automatic' si quieres otro flujo
+  };
+
+  const handleStatusClick: React.MouseEventHandler<HTMLButtonElement> = () => {
+    void getBackupStatus();
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -69,10 +78,7 @@ export default function BackupManager() {
             <div className="flex justify-between items-center">
               <span className="text-gray-300">Último backup:</span>
               <span className="text-blue-400">
-                {lastBackup ? 
-                  formatDate(lastBackup) : 
-                  'No disponible'
-                }
+                {lastBackup ? formatDate(lastBackup) : 'No disponible'}
               </span>
             </div>
             <div className="flex justify-between items-center">
@@ -88,7 +94,7 @@ export default function BackupManager() {
       {/* Acciones principales */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <button
-          onClick={createBackup}
+          onClick={handleCreateBackupClick}
           disabled={isLoading}
           className="bg-green-600 hover:bg-green-700 disabled:opacity-50 text-white p-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
         >
@@ -98,14 +104,12 @@ export default function BackupManager() {
               Creando Backup...
             </>
           ) : (
-            <>
-              💾 Crear Backup Manual
-            </>
+            <>💾 Crear Backup Manual</>
           )}
         </button>
 
         <button
-          onClick={() => getBackupStatus()}
+          onClick={handleStatusClick}
           className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
         >
           🔄 Actualizar Estado

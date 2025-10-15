@@ -27,13 +27,6 @@
       "static/chunks/320-fec2251845a9d991.js",
       "static/chunks/app/admin/page-bcd4c6abea219b17.js"
     ],
-    "/grupo/[id]/page": [
-      "static/chunks/webpack-8ca059191bca809f.js",
-      "static/chunks/fd9d1056-42946203f292a6bb.js",
-      "static/chunks/23-2c9dab090d154a7c.js",
-      "static/chunks/main-app-13f3f96ee518a7b7.js",
-      "static/chunks/app/grupo/[id]/page-881f1ae38f8ca6fa.js"
-    ],
     "/ayuda/page": [
       "static/chunks/webpack-8ca059191bca809f.js",
       "static/chunks/fd9d1056-42946203f292a6bb.js",
@@ -49,6 +42,13 @@
       "static/chunks/main-app-13f3f96ee518a7b7.js",
       "static/chunks/835-848cf982f42a1d03.js",
       "static/chunks/app/login/page-e917e6a839259c17.js"
+    ],
+    "/grupo/[id]/page": [
+      "static/chunks/webpack-8ca059191bca809f.js",
+      "static/chunks/fd9d1056-42946203f292a6bb.js",
+      "static/chunks/23-2c9dab090d154a7c.js",
+      "static/chunks/main-app-13f3f96ee518a7b7.js",
+      "static/chunks/app/grupo/[id]/page-881f1ae38f8ca6fa.js"
     ],
     "/page": [
       "static/chunks/webpack-8ca059191bca809f.js",
