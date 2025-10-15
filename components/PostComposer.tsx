@@ -15,6 +15,7 @@ const PostComposer = memo(function PostComposer({ groupId, onPostCreated }: { gr
   const [text, setText] = useState('');
   const [files, setFiles] = useState<FileList | null>(null);
   const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [driveUrl, setDriveUrl] = useState('');
   const [mediaType, setMediaType] = useState<'files' | 'youtube' | 'mixed'>('files');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -85,6 +86,7 @@ const PostComposer = memo(function PostComposer({ groupId, onPostCreated }: { gr
         contenido: text.trim(),
         archivos: [],
         youtube_url: youtubeUrl.trim() || undefined,
+        google_drive_url: driveUrl.trim() || undefined,
         status
       });
 
@@ -134,8 +136,9 @@ const PostComposer = memo(function PostComposer({ groupId, onPostCreated }: { gr
       setSuccess(true);
       setSubject('');
       setText('');
-      setFiles(null);
-      setYoutubeUrl('');
+  setFiles(null);
+  setYoutubeUrl('');
+  setDriveUrl('');
       
       // Actualizar contador de posts restantes
       setRemainingPosts(getRemaining());
@@ -251,12 +254,19 @@ const PostComposer = memo(function PostComposer({ groupId, onPostCreated }: { gr
         {(mediaType === 'youtube' || mediaType === 'mixed') && (
           <input
             type="url"
-            placeholder="URL de YouTube (ej: https://youtube.com/watch?v=..."
+            placeholder="URL de YouTube (ej: https://youtube.com/watch?v=...)"
             value={youtubeUrl}
             onChange={(e) => setYoutubeUrl(e.target.value)}
-            className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all duration-300"
+            className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all duration-300 mb-2"
           />
         )}
+        <input
+          type="url"
+          placeholder="URL de Google Drive (ej: https://drive.google.com/file/d/ID/view)"
+          value={driveUrl}
+          onChange={(e) => setDriveUrl(e.target.value)}
+          className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+        />
       </div>
       <div className="flex gap-3">
         <button 

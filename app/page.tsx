@@ -34,21 +34,23 @@ const HomePage = memo(function HomePage() {
 
   // Tutorial: abrir solo cuando el usuario presiona el botón (sin auto-open)
 
-  // Smooth scroll to grupos section
-  const handleScrollToGrupos = () => {
-    const gruposSection = document.getElementById('grupos');
-    if (gruposSection) {
-      gruposSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <div className="min-h-screen">
+      {/* Toggle de tema */}
+      <div className="theme-toggle">
+        {mounted && (
+          <button className="btn-secondary" onClick={() => setTheme(t => (t === 'dark' ? 'light' : 'dark'))} aria-label="Cambiar tema">
+            <span>{theme === 'dark' ? '☀️' : '🌙'}</span>
+            <span className="sr-only">Cambiar tema</span>
+          </button>
+        )}
+      </div>
+
       {/* Tutorial Overlay */}
       <TutorialOverlay isVisible={showTutorial} onClose={() => setShowTutorial(false)} />
 
-      {/* Hero estilo Dr. Friend */}
-      <section className="section hero-drfriend hero-section">
+  {/* Hero estilo Dr. Friend */}
+  <section className="section hero-drfriend hero-section">
         <div className="container">
           <div className="hero-panel animate-fade-in-up">
             {/* blobs decorativos */}
@@ -72,35 +74,45 @@ const HomePage = memo(function HomePage() {
                 <span className="text-white bg-blue-900/60 px-3 py-1 rounded-lg">También nos puedes llamar:</span> <strong className="text-yellow-300 bg-blue-900/40 px-3 py-1 rounded-lg ml-2">ROBUX</strong>.
               </p>
 
-              {/* Botones principales y toggle de tema en fila, pero en móvil en columna y con separación */}
-              <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mt-4 w-full">
-                <div className="flex flex-row gap-3 w-full sm:w-auto">
-                  <button
-                    className="btn-secondary w-full sm:w-auto"
-                    onClick={() => setShowTutorial(true)}
-                    aria-label="Abrir tutorial"
-                  >
-                    💎 Tutorial
-                  </button>
-                  <button
-                    className="btn-primary w-full sm:w-auto text-center"
-                    onClick={handleScrollToGrupos}
-                    aria-label="Ver grupos"
-                  >
-                    Ver grupos
-                  </button>
-                </div>
-                {mounted && (
-                  <button
-                    className="btn-secondary w-full sm:w-auto mt-2 sm:mt-0"
-                    onClick={() => setTheme(t => (t === 'dark' ? 'light' : 'dark'))}
-                    aria-label="Cambiar tema"
-                    style={{ zIndex: 10 }}
-                  >
-                    <span>{theme === 'dark' ? '☀️' : '🌙'}</span>
-                    <span className="sr-only">Cambiar tema</span>
-                  </button>
-                )}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button
+                  className="btn-secondary"
+                  onClick={() => setShowTutorial(true)}
+                  aria-label="Abrir tutorial"
+                >
+                  💎 Tutorial
+                </button>
+                <button
+                  className="btn-primary"
+                  onClick={() => {
+                    const el = document.getElementById('grupos');
+                    if (el) {
+                      // Mejorar la animación de scroll
+                      const headerOffset = 100; // Offset reducido para mejor posicionamiento
+                      const elementPosition = el.getBoundingClientRect().top;
+                      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                      
+                      // Agregar una clase de transición suave antes del scroll
+                      document.documentElement.style.scrollBehavior = 'smooth';
+                      
+                      // Usar requestAnimationFrame para suavizar la animación
+                      requestAnimationFrame(() => {
+                        window.scrollTo({
+                          top: offsetPosition,
+                          behavior: 'smooth'
+                        });
+                      });
+                      
+                      // Restaurar el comportamiento normal después de la animación
+                      setTimeout(() => {
+                        document.documentElement.style.scrollBehavior = 'auto';
+                      }, 1000);
+                    }
+                  }}
+                  aria-label="Ir a grupos"
+                >
+                  👥 Grupos
+                </button>
               </div>
             </div>
           </div>
@@ -108,14 +120,14 @@ const HomePage = memo(function HomePage() {
       </section>
 
       {/* Grupos (acceso rápido) */}
-      <section className="section" id="grupos">
+  <section className="section" id="grupos">
         <div className="container">
           <div className="text-center space-y-3 mb-10">
             <span className="badge badge-green">Grupos</span>
             <h2 className="title-lg">Accede a tus grupos</h2>
             <p className="text-lg max-w-2xl mx-auto">Entra directamente al tablero de cada grupo.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 grid-cols-3">
             {[1,2,3,4,5].map((id) => (
               <Link key={id} href={`/grupo/${id}`} className="card" style={{borderColor:'var(--card-border)'}}>
                 <div className="flex items-center justify-between">

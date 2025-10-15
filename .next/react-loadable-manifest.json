@@ -1,4 +1,29 @@
 {
+  "app\\grupo\\[id]\\page.tsx -> ../../../components/GroupBoard": {
+    "id": "app\\grupo\\[id]\\page.tsx -> ../../../components/GroupBoard",
+    "files": [
+      "static/css/_app-pages-browser_components_GroupBoard_tsx.css",
+      "static/chunks/_app-pages-browser_components_GroupBoard_tsx.js"
+    ]
+  },
+  "components\\GroupBoard.tsx -> ./GroupHomeEditor": {
+    "id": "components\\GroupBoard.tsx -> ./GroupHomeEditor",
+    "files": [
+      "static/chunks/_app-pages-browser_components_GroupHomeEditor_tsx.js"
+    ]
+  },
+  "components\\GroupBoard.tsx -> ./GroupHomePage": {
+    "id": "components\\GroupBoard.tsx -> ./GroupHomePage",
+    "files": [
+      "static/chunks/_app-pages-browser_components_GroupHomePage_tsx.js"
+    ]
+  },
+  "components\\RichTextEditor.tsx -> react-quill": {
+    "id": "components\\RichTextEditor.tsx -> react-quill",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_react-quill_lib_index_js.js"
+    ]
+  },
   "node_modules\\@supabase\\auth-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch": {
     "id": "node_modules\\@supabase\\auth-js\\dist\\module\\lib\\helpers.js -> @supabase/node-fetch",
     "files": []

@@ -4,7 +4,36 @@ type Props = { url: string };
 
 export default function FilePreview({ url }: Props) {
   const lower = url.toLowerCase();
-  
+
+  // Google Drive video preview (soporta /view y /preview)
+  if (lower.includes('drive.google.com')) {
+    // Extraer el ID del archivo de la URL
+    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    const fileId = match ? match[1] : null;
+    // Siempre usar formato embed /preview
+    let embedUrl = url;
+    if (fileId) {
+      embedUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+    }
+    // Si el link tiene parámetros extra, quítalos
+    embedUrl = embedUrl.split('?')[0];
+    return (
+      <div className="glass rounded-2xl overflow-hidden">
+        <div className="p-4 bg-black/20 text-center">
+          <div className="text-gray-400 mb-2">🎬 Video de Google Drive</div>
+          <a href={url} target="_blank" rel="noreferrer" className="text-blue-400 hover:text-blue-300 underline">Ver en Drive</a>
+        </div>
+        <iframe
+          src={embedUrl}
+          className="w-full h-96"
+          allow="autoplay"
+          title="Google Drive Video"
+          frameBorder="0"
+        />
+      </div>
+    );
+  }
+
   if (lower.endsWith('.pdf')) {
     return (
       <div className="glass rounded-2xl overflow-hidden">

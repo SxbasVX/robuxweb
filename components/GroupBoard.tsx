@@ -34,8 +34,8 @@ const academicGroups = [
   { 
     id: 1, 
     name: 'Grupo 1', 
-    description: 'Investigación en Tecnologías Emergentes',
-    topic: 'Inteligencia Artificial y Machine Learning',
+    description: '',
+    topic: '',
     members: [
       'Vilca Cruz Marsia Gianella Katherine',
       'Luna Viilca Sahara Dula',
@@ -50,8 +50,8 @@ const academicGroups = [
   { 
     id: 2, 
     name: 'Grupo 2', 
-    description: 'Desarrollo Sostenible y Medio Ambiente',
-    topic: 'Energías Renovables y Conservación',
+    description: '',
+    topic: '',
     members: [
       'Palomino Huamani Judit Gabriela',
       'Asuncion Pomasonco Allison Giselle',
@@ -66,8 +66,8 @@ const academicGroups = [
   { 
     id: 3, 
     name: 'Grupo 3', 
-    description: 'Innovación en Salud Digital',
-    topic: 'Telemedicina y Aplicaciones Médicas',
+    description: '',
+    topic: '',
     members: [
       'Quispe Abtao Jhack Hildibrahan',
       'Reyes Mendieta Karla Fernanda',
@@ -81,8 +81,8 @@ const academicGroups = [
   { 
     id: 4, 
     name: 'Grupo 4', 
-    description: 'Educación Digital y Nuevas Metodologías',
-  topic: 'Robux',
+    description: '',
+    topic: '',
     members: [
       'Martinez Lugue Claudia Alexandra',
       'Morales Damian Andrea Katherine',
@@ -96,8 +96,8 @@ const academicGroups = [
   { 
     id: 5, 
     name: 'Grupo 5', 
-    description: 'Blockchain y Criptoeconomía',
-    topic: 'Aplicaciones Descentralizadas y DeFi',
+    description: '',
+    topic: '',
     members: [
       'Balbin Cueva Aaron',
       'Carrillo Castillo Brenda',
@@ -240,9 +240,8 @@ export default function GroupBoard({ groupId }: { groupId: number }) {
   const doDelete = useCallback(async (postId: string) => {
     const post = posts.find(p => p.id === postId);
     if (!post) return;
-    
-    // Verificar permisos: admin, o autor del post
-  const canDeletePost = role === 'admin' || post.autor === user?.id;
+    // Permitir borrar si es admin o si es delegado y autor del post
+    const canDeletePost = role === 'admin' || (role === 'delegado' && post.autor === user?.id);
     if (!canDeletePost) {
       alert('No tienes permisos para eliminar esta publicación');
       return;
@@ -253,8 +252,7 @@ export default function GroupBoard({ groupId }: { groupId: number }) {
       const { error } = await supabase
         .from('posts')
         .delete()
-        .eq('id', postId)
-        .eq('grupo', groupId);
+        .eq('id', postId);
       
       if (error) throw error;
       
@@ -393,7 +391,7 @@ export default function GroupBoard({ groupId }: { groupId: number }) {
                     onPublish={() => doPublish(p.id)}
                     canDelete={role === 'admin' || p.autor === user?.id}
                     onDelete={() => doDelete(p.id)}
-                    currentUserId={user?.email || undefined}
+                    currentUserId={user?.id || undefined}
                     currentUserRole={role || undefined}
                   />
                 </div>

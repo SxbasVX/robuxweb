@@ -39,8 +39,9 @@ class AuditLogger {
   }
 
   private loadLogsFromStorage() {
+    if (typeof window === 'undefined') return;
     try {
-      const stored = localStorage.getItem('audit_logs');
+      const stored = window.localStorage.getItem('audit_logs');
       if (stored) {
         this.logs = JSON.parse(stored);
       }
@@ -50,10 +51,11 @@ class AuditLogger {
   }
 
   private saveLogsToStorage() {
+    if (typeof window === 'undefined') return;
     try {
       // Mantener solo los últimos 1000 logs
       const recentLogs = this.logs.slice(-1000);
-      localStorage.setItem('audit_logs', JSON.stringify(recentLogs));
+      window.localStorage.setItem('audit_logs', JSON.stringify(recentLogs));
       this.logs = recentLogs;
     } catch (error) {
       console.error('Error saving logs to storage:', error);
@@ -73,14 +75,14 @@ class AuditLogger {
       user_agent: navigator.userAgent
     };
 
-    // Agregar a logs locales
+    // Guardar en localStorage
     this.logs.push(logEntry);
     this.saveLogsToStorage();
 
-    // Intentar enviar a base de datos
+    // Guardar SIEMPRE en Supabase
     try {
       const supabase = getSupabase();
-      await supabase.from('logs').insert([{
+      await supabase.from('logs').insert({
         id: logEntry.id,
         timestamp: logEntry.timestamp,
         user_id: logEntry.user_id,
@@ -90,9 +92,10 @@ class AuditLogger {
         details: logEntry.details,
         ip_address: logEntry.ip_address,
         user_agent: logEntry.user_agent
-      }]);
+      });
     } catch (error) {
-      console.warn('Could not save log to database:', error);
+      // Si falla, mostrar advertencia pero no perder el log local
+      console.warn('No se pudo guardar el log en Supabase:', error);
     }
 
     // Log críticos también en consola
@@ -156,10 +159,13 @@ class AuditLogger {
 
   clearLogs() {
     this.logs = [];
-    localStorage.removeItem('audit_logs');
+    if (typeof window !== 'undefined') {
+      window.localStorage.removeItem('audit_logs');
+    }
   }
 
   exportLogs() {
+    if (typeof window === 'undefined') return;
     const data = JSON.stringify(this.logs, null, 2);
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
