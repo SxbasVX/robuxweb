@@ -38,11 +38,11 @@ const academicGroups = [
     topic: '',
     members: [
       'Vilca Cruz Marsia Gianella Katherine',
-      'Luna Viilca Sahara Dula',
+      'Lugo Villogas Ihara Dula',
       'Romani Medina Nadit Liliana',
       'Maza Morales Benjamin Pedro',
       'Damjanovic Burga Yenko Branko',
-      'Navarro Cespedes Sunny Adriana'
+      'Navarro Cespedes Sunmy Adriana '
     ],
     color: 'from-blue-500 to-cyan-600',
     icon: '🤖'
@@ -58,7 +58,7 @@ const academicGroups = [
       'Martinez Gomez Alvaro Jose',
       'Yaranga Mejia Zharick Scarlett',
       'Maquera Mendoza Bryan Antony',
-      'Luque Leayza David Mauricio'
+      'Luque Loayza David Mauricio '
     ],
     color: 'from-green-500 to-emerald-600',
     icon: '🌱'
@@ -84,10 +84,10 @@ const academicGroups = [
     description: '',
     topic: '',
     members: [
-      'Martinez Lugue Claudia Alexandra',
+      'Martinez Luque Claudia Alexandra',
       'Morales Damian Andrea Katherine',
-      'Josue Osorio Anghely Cristal',
-      'Espinoza Cardeña Alessandra Abyael',
+      'Usurin Osorio Anghely Crystal',
+      'Espinoza Cardeña Alessandra Abygail',
       'Granada Juarez Alejandra'
     ],
     color: 'from-pink-500 to-rose-600',
@@ -104,8 +104,8 @@ const academicGroups = [
       'Hurtado Dominguez Angel Valeria',
       'Marcelo Diego Francesco',
       'Medina Vera Arturo Alexis',
-      'Obregon Castro Jhesbelt Anadira',
-      'Ramon Ipushima Ilan Yefet'
+      'Obregon Castro Jhesbelt Jhadira',
+      'Ramon Ipushima Ilan Yafet'
     ],
     color: 'from-orange-500 to-amber-600',
     icon: '⛓️'
