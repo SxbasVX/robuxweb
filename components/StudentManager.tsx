@@ -603,9 +603,9 @@ export function StudentManager({ groupId, currentUser, isAdminView = false }: St
           {activeSection === 'evidencias' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-white">📁 Evidencias</h3>
+                <h3 className="text-lg font-semibold text-white">📁 Mapas</h3>
                 <label className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg cursor-pointer">
-                  {uploading ? 'Subiendo...' : '+ Subir Evidencia'}
+                  {uploading ? 'Subiendo...' : '+ Subir Mapa'}
                   <input
                     type="file"
                     accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
@@ -617,7 +617,7 @@ export function StudentManager({ groupId, currentUser, isAdminView = false }: St
               </div>
 
               {studentContent.evidencias.length === 0 ? (
-                <div className="text-center py-8 text-gray-400">📁 No hay evidencias subidas</div>
+                <div className="text-center py-8 text-gray-400">📁 No hay mapas subidos</div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {studentContent.evidencias.map((evidencia) => (
