@@ -211,7 +211,7 @@ const HomePage = memo(function HomePage() {
               <div>
                 <h3 className="title-md mb-2">Email</h3>
                 <p className="text-lg" style={{color:'var(--muted-color)'}}>
-                  seccion@gmail.com
+                  secciondiecisiete@gmail.com
                 </p>
               </div>
               <div className="flex gap-4">
