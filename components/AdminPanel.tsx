@@ -20,7 +20,7 @@ type UserDoc = {
 };
 
 export default function AdminPanel() {
-  const { user } = useAuth();
+  const { user, role } = useAuth();
   const [users, setUsers] = useState<Array<{ id: string; data: UserDoc }>>([]);
   const [loading, setLoading] = useState(true);
   const [deletingUserId, setDeletingUserId] = useState<string | null>(null);
@@ -122,6 +122,35 @@ export default function AdminPanel() {
     loadUsers();
     getBackupStatus();
   }, [getBackupStatus]);
+
+  // Verificar que el usuario sea admin
+  if (!user) {
+    return (
+      <div className="glass p-8 rounded-2xl">
+        <div className="text-center text-gray-400">
+          <p className="text-xl mb-2">🔒</p>
+          <p>Debes iniciar sesión para acceder al panel de administración</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (role !== 'admin') {
+    return (
+      <div className="glass p-8 rounded-2xl border-l-4 border-red-500">
+        <div className="text-center">
+          <p className="text-4xl mb-4">🚫</p>
+          <h2 className="text-2xl font-bold text-red-400 mb-2">Acceso Denegado</h2>
+          <p className="text-gray-400">
+            Solo los administradores pueden acceder a este panel.
+          </p>
+          <p className="text-sm text-gray-500 mt-4">
+            Tu rol actual: <span className="text-yellow-400 font-semibold">{role}</span>
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

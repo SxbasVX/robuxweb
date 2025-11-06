@@ -9,6 +9,7 @@ interface UserAvatarProps {
     displayName?: string;
     avatar?: { color: string; emoji: string };
     email?: string | null;
+    avatar_url?: string;
   } | null;
   role?: string | null;
   size?: 'sm' | 'md' | 'lg' | 'xl';
@@ -54,6 +55,31 @@ const UserAvatar = memo(function UserAvatar({
 
   // Obtener avatar genérico basado en el ID del usuario
   const genericAvatar = getGenericAvatar(user.id);
+
+  // Si el usuario tiene una imagen personalizada (avatar_url)
+  if (user.avatar_url) {
+    return (
+      <div className="relative">
+        <div className={`${sizeClasses[size]} rounded-full overflow-hidden bg-gray-700 ${className}`}>
+          <img 
+            src={user.avatar_url} 
+            alt={user.displayName || 'Avatar'} 
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              // Si la imagen falla, mostrar avatar genérico
+              e.currentTarget.style.display = 'none';
+              e.currentTarget.parentElement!.innerHTML = `<div class="w-full h-full flex items-center justify-center bg-gray-600 text-white">${getInitials(user.displayName || user.email || '??')}</div>`;
+            }}
+          />
+        </div>
+        {showRole && role && role !== 'usuario' && role !== 'anonimo' && (
+          <div className={`absolute -bottom-1 -right-1 ${iconSizes[size]} bg-gradient-to-r ${getRoleColor(role)} rounded-full p-1 border-2 border-white`}>
+            <span>{getRoleIcon(role)}</span>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   // Si el usuario tiene un avatar personalizado (anónimo), usar emoji
   if (user.avatar) {

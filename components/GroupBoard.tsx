@@ -115,7 +115,7 @@ const academicGroups = [
 export default function GroupBoard({ groupId }: { groupId: number }) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [refreshKey, setRefreshKey] = useState(0);
-  const [activeTab, setActiveTab] = useState<'inicio' | 'posts' | 'integrantes' | 'management'>('inicio');
+  const [activeTab, setActiveTab] = useState<'inicio' | 'integrantes'>('inicio');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -153,44 +153,8 @@ export default function GroupBoard({ groupId }: { groupId: number }) {
 
   // Cargar posts solo cuando sea necesario
   useEffect(() => {
-    if (activeTab !== 'posts') return;
-    
-    let mounted = true;
-    setIsLoading(true);
-    setError(null);
-    
-    const loadPosts = async () => {
-      try {
-        const unsub = subscribePosts(groupId, (items: Post[]) => {
-          if (mounted) {
-            setPosts(items);
-            setIsLoading(false);
-          }
-        });
-        
-        return unsub;
-      } catch (err) {
-        if (mounted) {
-          setError(err instanceof Error ? err.message : 'Error cargando posts');
-          setIsLoading(false);
-        }
-      }
-    };
-    
-    let unsubscribeFunction: (() => void) | null = null;
-    
-    loadPosts().then(unsub => {
-      if (typeof unsub === 'function') {
-        unsubscribeFunction = unsub;
-      }
-    });
-    
-    return () => {
-      mounted = false;
-      if (unsubscribeFunction) {
-        unsubscribeFunction();
-      }
-    };
+    // Ya no necesitamos cargar posts porque eliminamos la pestaña
+    return;
   }, [groupId, refreshKey, activeTab]);
 
   const onReact = useCallback((postId: string) => async (emoji: Emoji) => {
@@ -301,7 +265,6 @@ export default function GroupBoard({ groupId }: { groupId: number }) {
         <div className="tabbar">
           {[
             { id: 'inicio', label: 'Inicio', icon: '🏠' },
-            { id: 'posts', label: 'Publicaciones', icon: '📝' },
             { id: 'integrantes', label: 'Integrantes', icon: '👥' },
           ].map((tab) => (
             <button
@@ -356,57 +319,6 @@ export default function GroupBoard({ groupId }: { groupId: number }) {
         </div>
       )}
 
-      {/* Contenido de Posts */}
-      {activeTab === 'posts' && (
-        <div className="space-y-4">
-          <div className="glass-card p-4">
-            <PostComposer groupId={groupId} onPostCreated={refreshPosts} />
-          </div>
-          {isLoading ? (
-            <div className="flex items-center justify-center p-8">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-500"></div>
-              <span className="ml-3 text-gray-400">Cargando publicaciones...</span>
-            </div>
-          ) : error ? (
-            <div className="glass-card p-6" style={{borderColor:'rgba(239,68,68,0.35)'}}>
-              <div className="text-red-400 text-center">
-                <p className="font-semibold">Error al cargar los datos</p>
-                <p className="text-sm mt-2">{error}</p>
-                <button 
-                  onClick={refreshPosts}
-                  className="mt-4 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors"
-                >
-                  Reintentar
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {filteredPosts.map((p) => (
-                <div key={p.id} className="mb-4">
-                  <PostCard
-                    post={p}
-                    onReact={onReact(p.id)}
-                    canPublish={canPublish(p)}
-                    onPublish={() => doPublish(p.id)}
-                    canDelete={role === 'admin' || p.autor === user?.id}
-                    onDelete={() => doDelete(p.id)}
-                    currentUserId={user?.id || undefined}
-                    currentUserRole={role || undefined}
-                  />
-                </div>
-              ))}
-              
-              {!filteredPosts.length && !isLoading && (
-                <p className="muted-token text-sm text-center py-8 animate-fade-in">
-                  No hay publicaciones todavía.
-                </p>
-              )}
-            </div>
-          )}
-        </div>
-      )}
-
       {/* Panel de Integrantes */}
       {activeTab === 'integrantes' && (
         <div className="space-y-6">
@@ -418,12 +330,12 @@ export default function GroupBoard({ groupId }: { groupId: number }) {
                 Gestión de Estudiantes
               </h3>
               
-              <StudentManager groupId={groupId.toString()} currentUser={user} />
+              <StudentManager groupId={groupId.toString()} currentUser={{ ...user, role }} />
             </div>
           ) : (
             /* Solo vista de trabajos para estudiantes */
             <div className="post-card p-6">
-              <StudentsViewer groupId={groupId.toString()} currentUser={user} />
+              <StudentsViewer groupId={groupId.toString()} currentUser={{ ...user, role }} />
             </div>
           )}
         </div>

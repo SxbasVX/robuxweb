@@ -10,6 +10,7 @@ interface Student {
   role: string;
   group: string;
   full_name?: string;
+  avatar_url?: string;
 }
 
 interface StudentWork {
@@ -57,6 +58,11 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [fetchedCount, setFetchedCount] = useState<number | null>(null);
   const [rawResponse, setRawResponse] = useState<any>(null);
+  const [editingEssayId, setEditingEssayId] = useState<string | null>(null);
+  const [editingTitle, setEditingTitle] = useState<string>('');
+  const [editingAvatar, setEditingAvatar] = useState<string | null>(null);
+  const [newAvatarFile, setNewAvatarFile] = useState<File | null>(null);
+  const [uploadingAvatar, setUploadingAvatar] = useState(false);
 
   useEffect(() => {
     loadStudents();
@@ -75,7 +81,7 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
       // Usar la nueva tabla estudiantes (pedimos count también)
       const { data, error, count } = await supabase
         .from('estudiantes')
-        .select('id, codigo, nombre_completo, email, grupo', { count: 'exact' })
+        .select('id, codigo, nombre_completo, email, grupo, avatar_url', { count: 'exact' })
         .eq('grupo', parseInt(groupId))
         .order('nombre_completo', { ascending: true });
       console.log('[StudentsViewer] estudiantes data:', data, 'error:', error, 'count:', count);
@@ -106,7 +112,8 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
           email: user.email,
           role: user.role,
           group: user.group?.toString() || groupId,
-          full_name: user.full_name || user.email
+          full_name: user.full_name || user.email,
+          avatar_url: user.avatar_url
         })) || [];
         setStudents(convertedStudents);
         return;
@@ -118,7 +125,8 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
         email: estudiante.email,
         role: 'usuario',
         group: estudiante.grupo?.toString() || groupId,
-        full_name: estudiante.nombre_completo
+        full_name: estudiante.nombre_completo,
+        avatar_url: estudiante.avatar_url
       })) || [];
 
       setStudents(convertedStudents);
@@ -206,6 +214,100 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
     }
   };
 
+  const handleEditEssayTitle = async (essayId: string, newTitle: string) => {
+    if (!newTitle.trim()) {
+      alert('El título no puede estar vacío');
+      return;
+    }
+
+    try {
+      const supabase = getSupabase();
+      const { error } = await supabase
+        .from('student_essays')
+        .update({ title: newTitle.trim() })
+        .eq('id', essayId);
+
+      if (error) throw error;
+
+      // Actualizar el estado local
+      setStudentWork(prev => ({
+        ...prev,
+        ensayos: prev.ensayos.map(ensayo =>
+          ensayo.id === essayId ? { ...ensayo, title: newTitle.trim() } : ensayo
+        )
+      }));
+
+      setEditingEssayId(null);
+      setEditingTitle('');
+      alert('✅ Título actualizado correctamente');
+    } catch (error: any) {
+      console.error('Error updating essay title:', error);
+      alert('❌ Error al actualizar el título: ' + (error?.message || 'Error desconocido'));
+    }
+  };
+
+  const handleAvatarUpload = async (studentId: string) => {
+    if (!newAvatarFile) {
+      alert('❌ Por favor selecciona una imagen');
+      return;
+    }
+
+    if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'delegado')) {
+      alert('❌ No tienes permisos para editar fotos');
+      return;
+    }
+
+    setUploadingAvatar(true);
+    try {
+      const supabase = getSupabase();
+      
+      // Subir imagen a Supabase Storage
+      const fileExt = newAvatarFile.name.split('.').pop();
+      const fileName = `${studentId}-${Date.now()}.${fileExt}`;
+      const filePath = `avatars/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, newAvatarFile, {
+          cacheControl: '3600',
+          upsert: false
+        });
+
+      if (uploadError) throw uploadError;
+
+      // Obtener URL pública
+      const { data: urlData } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      // Actualizar URL en la tabla users
+      const { error: updateError } = await supabase
+        .from('users')
+        .update({ avatar_url: urlData.publicUrl })
+        .eq('id', studentId);
+
+      if (updateError) throw updateError;
+
+      // Actualizar estado local
+      setStudents(prev => prev.map(s => 
+        s.id === studentId ? { ...s, avatar_url: urlData.publicUrl } as any : s
+      ));
+
+      if (selectedStudent && selectedStudent.id === studentId) {
+        setSelectedStudent({ ...selectedStudent, avatar_url: urlData.publicUrl } as any);
+      }
+
+      setEditingAvatar(null);
+      setNewAvatarFile(null);
+      alert('✅ Foto actualizada correctamente');
+    } catch (error: any) {
+      console.error('Error uploading avatar:', error);
+      alert('❌ Error al subir la foto: ' + (error?.message || 'Error desconocido'));
+    } finally {
+      setUploadingAvatar(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
@@ -225,13 +327,6 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
           <p className="text-purple-200 mb-4">
             Explora los trabajos y proyectos de tus compañeros de grupo
           </p>
-          <div className="text-xs text-gray-300">Fetched: {fetchedCount ?? '-'} rows</div>
-          {rawResponse && (
-            <details className="text-xs text-gray-400 mt-2 bg-slate-800/40 p-2 rounded">
-              <summary className="cursor-pointer">Ver respuesta cruda (debug)</summary>
-              <pre className="text-xs whitespace-pre-wrap max-h-48 overflow-auto">{JSON.stringify(rawResponse, null, 2)}</pre>
-            </details>
-          )}
           {errorMsg && (
             <div className="bg-red-900/40 text-red-300 p-2 rounded mt-2">
               <strong>Error:</strong> {errorMsg}
@@ -263,7 +358,8 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
                     user={{
                       id: student.id,
                       displayName: student.full_name || student.email,
-                      email: student.email
+                      email: student.email,
+                      avatar_url: student.avatar_url
                     }}
                     size="sm"
                   />
@@ -298,14 +394,28 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
             >
               ← Volver
             </button>
-            <UserAvatar
-              user={{
-                id: selectedStudent.id,
-                displayName: selectedStudent.full_name || selectedStudent.email,
-                email: selectedStudent.email
-              }}
-              size="md"
-            />
+            <div className="relative">
+              <UserAvatar
+                user={{
+                  id: selectedStudent.id,
+                  displayName: selectedStudent.full_name || selectedStudent.email,
+                  email: selectedStudent.email,
+                  avatar_url: selectedStudent.avatar_url
+                }}
+                size="md"
+              />
+              {(currentUser?.role === 'admin' || currentUser?.role === 'delegado') && (
+                <button
+                  onClick={() => setEditingAvatar(selectedStudent.id)}
+                  className="absolute -bottom-1 -right-1 bg-blue-600 hover:bg-blue-500 text-white rounded-full p-1.5 shadow-lg transition-colors"
+                  title="Editar foto"
+                >
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                </button>
+              )}
+            </div>
             <div>
               <h2 className="text-2xl font-bold text-white">
                 {selectedStudent.full_name || selectedStudent.email}
@@ -359,7 +469,43 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {studentWork.ensayos.map((ensayo) => (
                   <div key={ensayo.id} className="bg-gray-900/50 rounded-lg p-4 border border-gray-600/30">
-                    <h4 className="text-white font-medium mb-2">{ensayo.title}</h4>
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <div className="flex-1">
+                        {editingEssayId === ensayo.id ? (
+                          <input
+                            type="text"
+                            value={editingTitle}
+                            onChange={e => setEditingTitle(e.target.value)}
+                            onBlur={() => handleEditEssayTitle(ensayo.id, editingTitle)}
+                            onKeyDown={e => {
+                              if (e.key === 'Enter') handleEditEssayTitle(ensayo.id, editingTitle);
+                              if (e.key === 'Escape') {
+                                setEditingEssayId(null);
+                                setEditingTitle('');
+                              }
+                            }}
+                            className="w-full font-medium text-white bg-gray-800/50 border-b-2 border-purple-500 outline-none px-2 py-1"
+                            autoFocus
+                          />
+                        ) : (
+                          <h4 className="text-white font-medium">
+                            {ensayo.title}
+                          </h4>
+                        )}
+                      </div>
+                      {(currentUser?.role === 'admin' || currentUser?.role === 'delegado') && editingEssayId !== ensayo.id && (
+                        <button
+                          onClick={() => {
+                            setEditingEssayId(ensayo.id);
+                            setEditingTitle(ensayo.title);
+                          }}
+                          className="px-2 py-1 bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 rounded text-xs transition-colors flex items-center gap-1"
+                          title="Editar título"
+                        >
+                          ✏️ Editar
+                        </button>
+                      )}
+                    </div>
                     {ensayo.description && (
                       <p className="text-gray-300 text-sm mb-3">{ensayo.description}</p>
                     )}
@@ -496,6 +642,63 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
           </div>
         )}
       </div>
+
+      {/* Modal para editar avatar */}
+      {editingAvatar && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-slate-800 rounded-2xl p-6 max-w-md w-full border border-slate-600 shadow-2xl">
+            <h3 className="text-xl font-bold text-white mb-4">📸 Cambiar Foto de Perfil</h3>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Seleccionar nueva imagen
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setNewAvatarFile(e.target.files?.[0] || null)}
+                  className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-600 file:text-white hover:file:bg-blue-500"
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  Formatos: JPG, PNG, GIF (máx. 5MB)
+                </p>
+              </div>
+
+              {newAvatarFile && (
+                <div className="bg-slate-700 rounded-lg p-3">
+                  <p className="text-sm text-gray-300">
+                    <span className="font-medium">Archivo seleccionado:</span> {newAvatarFile.name}
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    Tamaño: {(newAvatarFile.size / 1024).toFixed(2)} KB
+                  </p>
+                </div>
+              )}
+
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={() => handleAvatarUpload(editingAvatar)}
+                  disabled={!newAvatarFile || uploadingAvatar}
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                >
+                  {uploadingAvatar ? '⏳ Subiendo...' : '✅ Guardar'}
+                </button>
+                <button
+                  onClick={() => {
+                    setEditingAvatar(null);
+                    setNewAvatarFile(null);
+                  }}
+                  disabled={uploadingAvatar}
+                  className="flex-1 bg-slate-700 hover:bg-slate-600 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
