@@ -30,13 +30,13 @@ declare namespace __next_route_internal_types__ {
 
   type StaticRoutes = 
     | `/`
-    | `/api/comments`
-    | `/api/update-post-files`
     | `/admin`
     | `/ayuda`
+    | `/api/comments`
+    | `/api/update-post-files`
     | `/login`
-    | `/perfil`
     | `/status`
+    | `/perfil`
   type DynamicRoutes<T extends string = string> = 
     | `/grupo/${SafeSlug<T>}`
 

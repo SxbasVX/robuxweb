@@ -59,7 +59,12 @@ export const genericAvatars = [
 ];
 
 // Función para obtener un avatar basado en el ID del usuario
-export function getGenericAvatar(userId: string) {
+export function getGenericAvatar(userId: string | null | undefined) {
+  // Si no hay userId, usar un avatar aleatorio
+  if (!userId) {
+    return genericAvatars[Math.floor(Math.random() * genericAvatars.length)];
+  }
+  
   // Usar el hash del userId para seleccionar un avatar consistente
   const hash = userId.split('').reduce((a, b) => {
     a = ((a << 5) - a) + b.charCodeAt(0);

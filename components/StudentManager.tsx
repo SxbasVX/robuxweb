@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { getSupabase } from '../lib/supabaseClient';
 import UserAvatar from './UserAvatar';
 import { uploadFiles } from '../lib/storage';
+import CommentsSection from './CommentsSection';
 
 interface Student {
   id: string;
@@ -1028,6 +1029,14 @@ export function StudentManager({ groupId, currentUser, isAdminView = false }: St
                           </div>
                         )}
                       </div>
+                      
+                      {/* Sección de comentarios */}
+                      <CommentsSection
+                        itemId={ensayo.id}
+                        itemType="essay"
+                        studentId={selectedStudent.id}
+                        groupId={groupId}
+                      />
                     </div>
                   )})}
                 </div>
@@ -1124,6 +1133,14 @@ export function StudentManager({ groupId, currentUser, isAdminView = false }: St
                             )}
                           </div>
                         </div>
+                        
+                        {/* Sección de comentarios */}
+                        <CommentsSection
+                          itemId={video.id}
+                          itemType="video"
+                          studentId={selectedStudent.id}
+                          groupId={groupId}
+                        />
                       </div>
                     );
                   })}
@@ -1225,6 +1242,14 @@ export function StudentManager({ groupId, currentUser, isAdminView = false }: St
                           )}
                         </div>
                       </div>
+                      
+                      {/* Sección de comentarios */}
+                      <CommentsSection
+                        itemId={evidencia.id}
+                        itemType="evidencia"
+                        studentId={selectedStudent.id}
+                        groupId={groupId}
+                      />
                     </div>
                   ))}
                 </div>

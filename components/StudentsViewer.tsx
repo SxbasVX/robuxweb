@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { getSupabase } from '../lib/supabaseClient';
 import UserAvatar from './UserAvatar';
+import CommentsSection from './CommentsSection';
 
 interface Student {
   id: string;
@@ -520,6 +521,14 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
                     >
                       📖 Ver ensayo →
                     </a>
+
+                    {/* Sección de comentarios */}
+                    <CommentsSection
+                      itemId={ensayo.id}
+                      itemType="essay"
+                      studentId={selectedStudent.id}
+                      groupId={groupId}
+                    />
                   </div>
                 ))}
               </div>
@@ -582,6 +591,14 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
                       >
                         {video.type === 'youtube' ? '🔗 Ver en YouTube →' : '🔗 Ver en Drive →'}
                       </a>
+
+                      {/* Sección de comentarios */}
+                      <CommentsSection
+                        itemId={video.id}
+                        itemType="video"
+                        studentId={selectedStudent.id}
+                        groupId={groupId}
+                      />
                     </div>
                   </div>
                 ))}
@@ -634,6 +651,14 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
                       >
                         📖 Ver evidencia →
                       </a>
+
+                      {/* Sección de comentarios */}
+                      <CommentsSection
+                        itemId={evidencia.id}
+                        itemType="evidencia"
+                        studentId={selectedStudent.id}
+                        groupId={groupId}
+                      />
                     </div>
                   </div>
                 ))}

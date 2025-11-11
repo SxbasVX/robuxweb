@@ -30,7 +30,7 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<{ id: string; email?: string | null; displayName?: string; avatar?: { color: string; emoji: string } } | null>(null);
+  const [user, setUser] = useState<{ id: string | null; email?: string | null; displayName?: string; avatar?: { color: string; emoji: string } } | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAnonymous, setIsAnonymous] = useState(false);
@@ -52,8 +52,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     
     const gamertag = generateRandomGamertag();
     const avatar = generateRandomAvatar();
+    // Usar un ID temporal para el cliente (para UI), pero será null en la DB
     const anonymousUser = {
-      id: `anon_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      id: `anon-${Date.now()}`, // ID temporal solo para la interfaz
       displayName: gamertag,
       avatar: avatar
     };
