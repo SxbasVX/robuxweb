@@ -30,7 +30,7 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<{ id: string | null; email?: string | null; displayName?: string; avatar?: { color: string; emoji: string } } | null>(null);
+  const [user, setUser] = useState<{ id: string; email?: string | null; displayName?: string; avatar?: { color: string; emoji: string } } | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAnonymous, setIsAnonymous] = useState(false);
@@ -179,7 +179,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo<AuthContextType>(
     () => ({
-      user,
+      user: user as { id: string; email?: string | null; displayName?: string; avatar?: { color: string; emoji: string } } | null,
       role: profile?.role ?? null,
       group: (profile?.group as any) ?? null,
       loading,
