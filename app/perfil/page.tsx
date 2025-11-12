@@ -28,6 +28,17 @@ export default function PerfilPage() {
       const supabase = getSupabase();
       if (!user?.id) return;
       
+      // Si el usuario es anónimo, no hay stats que mostrar
+      if (user.id.startsWith('anon-')) {
+        setStats({
+          posts: 0,
+          comments: 0,
+          joinDate: null
+        });
+        setLoading(false);
+        return;
+      }
+      
       const { count: postsCount } = await supabase
         .from('posts')
         .select('*', { count: 'exact', head: true })
