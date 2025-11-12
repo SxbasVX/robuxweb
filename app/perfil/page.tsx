@@ -29,7 +29,7 @@ export default function PerfilPage() {
       if (!user?.id) return;
       
       // Si el usuario es anónimo, no hay stats que mostrar
-      if (user.id.startsWith('anon-')) {
+      if (user.id.startsWith('anon-') || user.id.startsWith('anon_')) {
         setStats({
           posts: 0,
           comments: 0,

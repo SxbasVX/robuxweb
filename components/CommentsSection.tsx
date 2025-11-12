@@ -63,8 +63,8 @@ export default function CommentsSection({ itemId, itemType, studentId, groupId }
     try {
       const supabase = getSupabase();
       
-      // Si el usuario es anónimo (ID empieza con 'anon-') o no hay usuario, usar null
-      const autorId = user?.id && !user.id.startsWith('anon-') ? user.id : null;
+      // Si el usuario es anónimo (ID empieza con 'anon-' o 'anon_') o no hay usuario, usar null
+      const autorId = user?.id && !user.id.startsWith('anon-') && !user.id.startsWith('anon_') ? user.id : null;
       
       const newComment = {
         item_id: itemId,
