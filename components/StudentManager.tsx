@@ -12,6 +12,7 @@ interface Student {
   role: string;
   group: string;
   full_name?: string;
+  avatar_url?: string;
 }
 
 interface StudentManagerProps {
@@ -868,8 +869,8 @@ export function StudentManager({ groupId, currentUser, isAdminView = false }: St
               >
                 <div className="flex items-center gap-4 mb-4">
                   <UserAvatar
-                    user={{ id: student.id, displayName: student.full_name, email: student.email }}
-                    size="lg"
+                    user={{ id: student.id, displayName: student.full_name, email: student.email, avatar_url: student.avatar_url }}
+                    size="xl"
                   />
                   <div>
                     <h3 className="text-white font-semibold text-lg">

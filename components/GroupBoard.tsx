@@ -69,7 +69,7 @@ const academicGroups = [
     description: '',
     topic: '',
     members: [
-      'Quispe Abtao Jhack Hildibrahan',
+      'Quispe Atao, Jhack Hildibrahan',
       'Reyes Mendieta Karla Fernanda',
       'Hanampa Bellido Luz Berli',
       'Gonzales Lopez Lulio Main',

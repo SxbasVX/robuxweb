@@ -362,7 +362,7 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
                       email: student.email,
                       avatar_url: student.avatar_url
                     }}
-                    size="sm"
+                    size="lg"
                   />
                   <div>
                     <h3 className="text-white font-medium">
@@ -403,15 +403,15 @@ export function StudentsViewer({ groupId, currentUser }: StudentsViewerProps) {
                   email: selectedStudent.email,
                   avatar_url: selectedStudent.avatar_url
                 }}
-                size="md"
+                size="xl"
               />
               {(currentUser?.role === 'admin' || currentUser?.role === 'delegado') && (
                 <button
                   onClick={() => setEditingAvatar(selectedStudent.id)}
-                  className="absolute -bottom-1 -right-1 bg-blue-600 hover:bg-blue-500 text-white rounded-full p-1.5 shadow-lg transition-colors"
+                  className="absolute -bottom-1 -right-1 bg-blue-600 hover:bg-blue-500 text-white rounded-full p-2 shadow-lg transition-colors"
                   title="Editar foto"
                 >
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                   </svg>
                 </button>

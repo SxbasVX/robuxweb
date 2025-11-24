@@ -25,17 +25,17 @@ const UserAvatar = memo(function UserAvatar({
   className = '' 
 }: UserAvatarProps) {
   const sizeClasses = {
-    sm: 'w-8 h-8 text-xs',
-    md: 'w-10 h-10 text-sm',
-    lg: 'w-12 h-12 text-base',
-    xl: 'w-16 h-16 text-lg'
+    sm: 'w-16 h-16 text-base',
+    md: 'w-20 h-20 text-lg',
+    lg: 'w-28 h-28 text-xl',
+    xl: 'w-32 h-32 text-2xl'
   };
 
   const sizePixels = {
-    sm: 32,
-    md: 40,
-    lg: 48,
-    xl: 64
+    sm: 64,
+    md: 80,
+    lg: 112,
+    xl: 128
   };
 
   const iconSizes = {
